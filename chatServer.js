@@ -38,7 +38,7 @@ var facts = [" Some Siamese cats appear cross-eyed because the nerves from the l
 " While it is commonly thought that the ancient Egyptians were the first to domesticate cats, the oldest known pet cat was recently found in a 9,500-year-old grave on the Mediterranean island of Cyprus. This grave predates early Egyptian art depicting cats by 4,000 years or more.[8] ",
 " While many parts of Europe and North America consider the black cat a sign of bad luck, in Britain and Australia, black cats are considered lucky.[8] "]
 
-
+var colors = ['red', 'white','green','blue']
 
 /*
 chatServer.js
@@ -95,6 +95,7 @@ function bot(data,socket,questionNum) {
   if (questionNum == 0) {
   // answer= 'Hello ' + input + ' :-)';// output response
   var fact = facts[Math.floor(Math.random() * facts.length)];
+  var newcolor = colors[Math.floor(Math.random() * colors.length)];
   answer= 'Thank you for subscribing to Cat Facts.';// output response
   waitTime =2000;
 
@@ -102,20 +103,21 @@ function bot(data,socket,questionNum) {
   }
   else if (questionNum == 1) {
     fact = facts[Math.floor(Math.random() * facts.length)];
-
+    newcolor = colors[Math.floor(Math.random() * colors.length)];
+    console.log('randomly picked color: ', newcolor);
     if(input.toLowerCase()==='no'|| input===1){
       answer = 'Perfect!';
       waitTime =2000;
-      question = 'Here is another Fact: ' + fact + 'Would you like to see more Cat Facts?'; 
+      question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
     }
     else {
-    // else if(input.toLowerCase()==='yes'|| input===0){
-        socket.emit('changeFont','white'); /// we really should look up the inverse of what we said befor.
+        socket.emit('changeFont',newcolor); /// we really should look up the inverse of what we said befor.
         answer='What are you talking about, of course you do!'
         // question='';
-        question = 'Here is another Fact: ' + fact + 'Would you like to see more Cat Facts?'; 
-        waitTime =0;
-        questionNum--; // Here we go back in the question number this can end up in a loop
+        waitTime =2000;
+        question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
+        // waitTime =2000;
+        // questionNum--; // Here we go back in the question number this can end up in a loop
     }
     // else{
     //   answer=' I did not understand you. Can you please answer with simply with yes or no.'
@@ -129,34 +131,91 @@ function bot(data,socket,questionNum) {
   // question = 'Where do you live?';			    	// load next question
   }
   else if (questionNum == 2) {
-  answer= ' Cool! I have never been to ' + input+'.';
-  waitTime =2000;
-  question = 'Whats your favorite Color?';			    	// load next question
-  }
-  else if (questionNum == 3) {
-  answer= 'Ok, ' + input+' it is.';
-  socket.emit('changeBG',input.toLowerCase());
-  waitTime = 2000;
-  question = 'Can you still read the font?';			    	// load next question
-  }
-  else if (questionNum == 4) {
-    if(input.toLowerCase()==='yes'|| input===1){
+    fact = facts[Math.floor(Math.random() * facts.length)];
+    newcolor = colors[Math.floor(Math.random() * colors.length)];
+  
+    console.log('randomly picked color: ', newcolor);
+
+    if(input.toLowerCase()==='no'|| input===1){
       answer = 'Perfect!';
       waitTime =2000;
-      question = 'Whats your favorite place?';
+      question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
     }
-    else if(input.toLowerCase()==='no'|| input===0){
-        socket.emit('changeFont','white'); /// we really should look up the inverse of what we said befor.
-        answer=''
-        question='How about now?';
-        waitTime =0;
-        questionNum--; // Here we go back in the question number this can end up in a loop
-    }else{
-      answer=' I did not understand you. Can you please answer with simply with yes or no.'
-      question='';
-      questionNum--;
-      waitTime =0;
+    else {
+        socket.emit('changeFont',newcolor); /// we really should look up the inverse of what we said befor.
+        answer='What are you talking about! Cats are great. You want to keep reading about Cats.'
+        // question='';
+        waitTime =2000;
+        question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
+        // waitTime =0;
+        // questionNum--; // Here we go back in the question number this can end up in a loop
     }
+
+
+  // answer= ' Cool! I have never been to ' + input+'.';
+  // waitTime =2000;
+  // question = 'Whats your favorite Color?';			    	// load next question
+  }
+  else if (questionNum == 3) {
+    fact = facts[Math.floor(Math.random() * facts.length)];
+    newcolor = colors[Math.floor(Math.random() * colors.length)];
+    console.log('randomly picked color: ', newcolor);
+
+    if(input.toLowerCase()==='no'|| input===1){
+      answer = 'Awesome!';
+      waitTime =2000;
+      question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
+    }
+    else {
+        socket.emit('changeFont',newcolor); /// we really should look up the inverse of what we said befor.
+        answer='Cats are the best! Cats make your day better.'
+        // question='';
+        waitTime =2000;
+        question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
+        // waitTime =0;
+        // questionNum--; // Here we go back in the question number this can end up in a loop
+    }
+  // answer= 'Ok, ' + input+' it is.';
+  // socket.emit('changeBG',colors[Math.floor(Math.random() * colors.length)]);
+  // waitTime = 2000;
+  // question = 'Can you still read the font?';			    	// load next question
+  }
+  else if (questionNum == 4) {
+    fact = facts[Math.floor(Math.random() * facts.length)];
+    newcolor = colors[Math.floor(Math.random() * colors.length)];
+    console.log('randomly picked color: ', newcolor);
+
+    if(input.toLowerCase()==='no'|| input===1){
+      answer = 'Great!';
+      waitTime =2000;
+      question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
+    }
+    else {
+        socket.emit('changeFont',newcolor); /// we really should look up the inverse of what we said befor.
+        answer='I CANT HEAR YOU!'
+        // question='';
+        waitTime =2000;
+        question = 'Here is another Fact: ' + fact + 'Would you like to unsubscribe from Cat Facts?'; 
+        // waitTime =0;
+        // questionNum--; // Here we go back in the question number this can end up in a loop
+    }
+    // if(input.toLowerCase()==='yes'|| input===1){
+    //   answer = 'Perfect!';
+    //   waitTime =2000;
+    //   question = 'Whats your favorite place?';
+    // }
+    // else if(input.toLowerCase()==='no'|| input===0){
+    //     socket.emit('changeFont','white'); /// we really should look up the inverse of what we said befor.
+    //     answer=''
+    //     question='How about now?';
+    //     waitTime =0;
+    //     questionNum--; // Here we go back in the question number this can end up in a loop
+    // }else{
+    //   answer=' I did not understand you. Can you please answer with simply with yes or no.'
+    //   question='';
+    //   questionNum--;
+    //   waitTime =0;
+    // }
   // load next question
   }
   else{
